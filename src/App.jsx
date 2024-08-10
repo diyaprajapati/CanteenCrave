@@ -1,9 +1,19 @@
 import React from 'react'
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import Login from './login-signup/Login'
+// import Signup from './login-signup/Signup'
 
 export default function App() {
   return (
     <div>
-      <h1 className='text-cyan-400 font-bold'>hello</h1>
+      <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path= '/' element= {<Login/>}/>
+          {/* <Route path= '/signup' element= {<Signup/>}/> */}
+        </Routes>
+      </BrowserRouter>
+    </div>
     </div>
   )
 }

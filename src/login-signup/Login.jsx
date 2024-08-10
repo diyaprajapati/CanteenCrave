@@ -1,36 +1,43 @@
 import React from 'react';
+// import axios from 'axios'
 import {Link} from 'react-router-dom';
 
 export default function Login() {
   return (
-    <div>
-        <div>
+    <div className='flex justify-center items-center h-screen'>
+    <form className='w-full h-full'>
+        <div className='flex flex-col justify-center items-center h-full'>
+
             {/* Label */}
-            <h1>Log-In</h1>
+            <h1 className='text-3xl p-6 font-semibold'>Log-In</h1>
 
             {/* email */}
-            <div>
-                <label>E-mail:</label>
-                <input type='email' placeholder='xyz@gmail.com'/>
-            </div>
+            <div className='flex flex-col p-4 gap-3 w-80'>
+                <div className='flex flex-col space-y-2'>
+                    <label className='font-medium text-left'>E-mail:</label>
+                    <input className='border-2 py-2 px-8 rounded-md focus:outline-none border-gray-400' type='email' placeholder='xyz@gmail.com'/>
+                </div>
 
-            {/* password */}
-            <div>
-                <label>Password:</label>
-                <input type='password' placeholder='password'/>
+                {/* password */}
+                <div className='flex flex-col space-y-2'>
+                    <label className='font-medium text-left'>Password:</label>
+                    <input className='border-2 py-2 px-8 rounded-md focus:outline-none border-gray-400' type='password' placeholder='password'/>
+                </div>
+
             </div>
 
             {/* Button */}
             <div>
-                <button>Log-in</button>
+                <button className='border px-16 py-4 rounded-lg bg-violet-700 text-white font-semibold border-none hover:bg-violet-800 transition-all ease-in-out duration-200'>Log-in</button>
             </div>
 
             {/* signup if doesn't login */}
-            {/* <div>
-                <p>Doesn't have an account?</p>
-                <Link to={/signup}>Signup</Link>
-            </div> */}
+            <div className='flex gap-4 mt-3'>
+                <p>Don't have an account?</p>
+                <Link className='font-normal underline hover:font-medium' to='/signup'> Signup </Link>
+            </div>
         </div>
+    </form>
     </div>
   )
 }

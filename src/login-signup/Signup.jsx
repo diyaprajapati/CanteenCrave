@@ -34,10 +34,7 @@ export default function Signup() {
             </div>
 
             {/* Button */}
-            {/* <div> */}
-                {/* <button className='border px-16 py-4 rounded-lg bg-violet-700 text-white font-semibold border-none hover:bg-violet-800 transition-all ease-in-out duration-200'>Log-in</button> */}
                 <Button>Sign-up</Button>
-            {/* </div> */}
 
             {/* signup if doesn't login */}
             <div className='flex gap-4 mt-3'>

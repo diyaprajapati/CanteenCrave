@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
-import axios from 'axios'
-import {Link} from 'react-router-dom';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 import Button from '../Button';
 
 export default function Login() {
-
     const [popup, setPopup] = useState({
         visible: false,
         message: '',
@@ -16,40 +15,35 @@ export default function Login() {
         password: ''
     });
 
-    // submit function
-    const handleLoginSubmit = async(e) => {
+    const handleLoginSubmit = async (e) => {
         e.preventDefault();
-
-        // popup msg
-        setPopup({visible: true, message: 'Login Successfully!', success:true});
-
+    
         try {
             const response = await axios.post('http://localhost:3000/', loginData);
-
-            if(popup.success) {
-                console.log('Login Successful: ', popup.success, popup.message);
+    
+            if (response.data.message === 'Login Successful') {
+                setPopup({ visible: true, message: 'Login Successfully!', success: true });
+            } else {
+                setPopup({ visible: true, message: response.data.error || 'Login Failed', success: false });
             }
-            else {
-                console.log('Login Failed: ', popup.success, popup.message);
-            }
+        } catch (error) {
+            setPopup({ visible: true, message: 'Invalid email or password', success: false });
         }
-        catch(error) {
-            setPopup({visible:true, message: 'Invalid email or password', success: false});
-            console.log('Login error', error);
-        }        
+    
+        // Reset login data only if successful
         setLoginData({
             email: '',
             password: ''
         });
-
-        // hide popup after 3 sec
+    
+        // Hide popup after 3 seconds
         setTimeout(() => {
-            setPopup((prevPopup) => ({...prevPopup, visible: false}));
+            setPopup((prevPopup) => ({ ...prevPopup, visible: false }));
         }, 3000);
     }
 
     const handleLoginChange = (e) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         setLoginData((prevData) => ({
             ...prevData,
             [name]: value
@@ -97,10 +91,10 @@ export default function Login() {
                     {/* Button */}
                     <Button>Log-in</Button>
                     {popup.visible && (
-                <div className={`p-5 rounded-md shadow-lg ${popup.success ? 'bg-green-200 text-green-800 border-green-600' : 'bg-red-200 text-red-800 border-red-600'}`}>
-                    <p>{popup.message}</p>
-                </div>
-            )}
+                        <div className={`p-5 rounded-md shadow-lg ${popup.success ? 'bg-green-200 text-green-800 border-green-600' : 'bg-red-200 text-red-800 border-red-600'}`}>
+                            <p>{popup.message}</p>
+                        </div>
+                    )}
 
                     {/* signup if doesn't login */}
                     <div className='flex gap-4 mt-3'>
@@ -110,5 +104,5 @@ export default function Login() {
                 </div>
             </form>
         </div>
-    )
+    );
 }

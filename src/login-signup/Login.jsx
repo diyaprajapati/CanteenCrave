@@ -19,7 +19,7 @@ export default function Login() {
         e.preventDefault();
     
         try {
-            const response = await axios.post('http://localhost:3000/', loginData);
+            const response = await axios.post('http://localhost:3000/login', loginData);
     
             if (response.data.message === 'Login Successful') {
                 setPopup({ visible: true, message: 'Login Successfully!', success: true });

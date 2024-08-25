@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../Button';
 
 export default function Login() {
@@ -15,27 +15,32 @@ export default function Login() {
         password: ''
     });
 
+    const navigate = useNavigate();  
+
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
     
         try {
             const response = await axios.post('http://localhost:3000/login', loginData);
-    
-            if (response.data.message === 'Login Successful') {
+
+            if (response.status === 200) {  
                 setPopup({ visible: true, message: 'Login Successfully!', success: true });
+                setTimeout(() => {
+                    navigate('/food');  
+                }, 1000);
             } else {
                 setPopup({ visible: true, message: response.data.error || 'Login Failed', success: false });
             }
         } catch (error) {
             setPopup({ visible: true, message: 'Invalid email or password', success: false });
         }
-    
+
         // Reset login data only if successful
         setLoginData({
             email: '',
             password: ''
         });
-    
+
         // Hide popup after 3 seconds
         setTimeout(() => {
             setPopup((prevPopup) => ({ ...prevPopup, visible: false }));
